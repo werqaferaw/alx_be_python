@@ -1,45 +1,30 @@
-def main():
-  """Prompts user for task, priority, and time sensitivity, then displays a reminder."""
+task = input("Enter your task: ")
 
-  # Get user input for task
-  task = input("Enter your task: ")
+# Prompt the user for task priority
+priority = input("Priority (high/medium/low): ").lower()
 
-  # Get user input for priority
-  while True:
-    priority = input("Priority (high/medium/low): ").lower()
-    if priority in ("high", "medium", "low"):
-      break
-    else:
-      print("Invalid priority. Please enter high, medium, or low.")
+# Ask if the task is time-bound
+time_bound = input("Is it time-bound? (yes/no): ").lower()
 
-  # Get user input for time sensitivity
-  while True:
-    time_bound = input("Is it time-bound? (yes/no): ").lower()
-    if time_bound in ("yes", "no"):
-      break
-    else:
-      print("Invalid response. Please enter yes or no.")
+# Generate the reminder based on the priority and time sensitivity
+reminder = ""
 
-  # Build reminder message
-  reminder = f"Reminder: '{task}' is a "
-  urgency = ""
-  
-  # Match case for priority
-  match priority:
+# Use match-case statement to handle different priorities
+match priority:
     case "high":
-      reminder += "high priority task"
-      if time_bound == "yes":
-        urgency = " that requires immediate attention today!"
+        reminder = f"'{task}' is a high priority task"
     case "medium":
-      reminder += "medium priority task"
+        reminder = f"'{task}' is a medium priority task"
     case "low":
-      reminder += "low priority task"
+        reminder = f"'{task}' is a low priority task"
+    case _:
+        reminder = f"'{task}' has an unknown priority level"
 
-  # Add urgency based on time sensitivity
-  reminder += urgency
+# Modify the reminder if the task is time-bound
+if time_bound == "yes":
+    reminder += " that requires immediate attention today!"
+else:
+    reminder += ". Consider completing it when you have free time."
 
-  # Print reminder message
-  print(reminder)
-
-if __name__ == "__main__":
-  main()
+# Print the customized reminder
+print(f"Reminder: {reminder}")
